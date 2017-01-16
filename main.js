@@ -12,7 +12,7 @@ $(function() {
     function result(msg) {
         setTimeout(function() {
             alert(msg);
-            location.reload();
+            location.reload(true);
         }, 600);
     }
 
