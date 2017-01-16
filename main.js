@@ -114,7 +114,7 @@ $(function() {
                 else if (box(0) + box(5) == "-1-1" || box(1) + box(8) == "-1-1" || box(1) + box(5) == "-1-1") { aiClick(2); } 
                 else if (box(0) + box(7) == "-1-1" || box(3) + box(8) == "-1-1" || box(3) + box(7) == "-1-1") { aiClick(6); } 
                 else if (box(5) + box(7) == "-1-1" || box(5) + box(6) == "-1-1" || box(2) + box(7) == "-1-1") { aiClick(8); } 
-                else { randomStep(); }
+                else { aiClick(2); }
             }
             else if (aiSteps === 2||aiSteps === 3) { randomStep(); }
         }
