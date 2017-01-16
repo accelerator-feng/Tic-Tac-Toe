@@ -34,12 +34,6 @@ $(function() {
         checkSituation();
     }
 
-    function stop(func) {
-        if (func) {
-            return;
-        }
-    }
-
     function aiRound() {
         if (complement(0, 1, 2)) {
             return;
@@ -85,7 +79,6 @@ $(function() {
                         aiClick(2);
                         break;
                     default:
-                        Xcase = "5";
                         aiClick(8);
                         break;
                 }
@@ -104,124 +97,31 @@ $(function() {
                     case "4":
                         aiClick(6);
                         break;
-                    case "5":
-                        if (box(7) == -1) {
-                            aiClick(1);
-                            Xcase = "51";
-                        }
-                        if (box(6) == -1) {
-                            aiClick(2);
-                        }
-                        if (box(5) == -1) {
-                            aiClick(3);
-                            Xcase = "53";
-                        }
-                        if (box(3) == -1) {
-                            aiClick(5);
-                            Xcase = "55";
-                        }
-                        if (box(2) == -1) {
-                            aiClick(6);
-                        }
-                        if (box(1) == -1) {
-                            aiClick(7);
-                            Xcase = "57";
-                        }
-                        break;
-                }
-            }
-            if (aiSteps === 3) {
-                switch (Xcase) {
-                    case "51":
-                        aiClick(6);
-                        break;
-                    case "53":
-                        aiClick(2);
-                        break;
-                    case "55":
-                        aiClick(6);
-                        break;
-                    case "57":
-                        aiClick(2);
-                        break;
-                }
-            }
-            if (aiSteps === 4) {
-                switch (Xcase) {
-                    case "51":
-                        aiClick(5);
-                        break;
-                    case "53":
-                        aiClick(7);
-                        break;
-                    case "55":
-                        aiClick(1);
-                        break;
-                    case "57":
-                        aiClick(3);
-                        break;
                 }
             }
         }
         if (AI === "O") {
             if (aiSteps === 0) {
-                switch (true) {
-                    case box(4) == -1:
-                        Ocase = "1";
-                        aiClick(0);
-                        break;
-                    case box(1) == -1 || box(3) == -1 || box(5) == -1 || box(7) == -1:
-                        Ocase = "2";
-                        aiClick(4);
-                        break;
-                    default:
-                        Ocase = "3";
-                        aiClick(4);
-                        break;
+                if (box(4) == -1) {
+                    aiClick(0);
+                } else {
+                    aiClick(4);
                 }
             }
-            if (aiSteps === 1) {
-                switch (Ocase) {
-                    case "1":
-                        if (box(8) == -1) { aiClick(2); }
-                        break;
-                    case "2":
-                        if (box(8) == -1) { aiClick(6); } else { aiClick(8); }
-                        break;
-                    case "3":
-                        if (box(1) == -1) {
-                            aiClick(7);
-                            Ocase = "31";
-                        } else {
-                            aiClick(1);
-                            Ocase = "32";
-                        }
-                        break;
-                }
+            else if (aiSteps === 1) {
+                if (parseInt(box(0)) + parseInt(box(2)) + parseInt(box(6)) + parseInt(box(8)) == 2) { aiClick(1); }
+                else if (box(2) + box(3) == "-1-1" || box(1) + box(6) == "-1-1" || box(1) + box(3) == "-1-1") { aiClick(0); } 
+                else if (box(0) + box(5) == "-1-1" || box(1) + box(8) == "-1-1" || box(1) + box(5) == "-1-1") { aiClick(2); } 
+                else if (box(0) + box(7) == "-1-1" || box(3) + box(8) == "-1-1" || box(3) + box(7) == "-1-1") { aiClick(6); } 
+                else if (box(5) + box(7) == "-1-1" || box(5) + box(6) == "-1-1" || box(2) + box(7) == "-1-1") { aiClick(8); } 
+                else { randomStep(); }
             }
-            if (aiSteps === 2) {
-                switch (Ocase) {
-                    case "1":
-                        randomStep();
-                        break;
-                    case "2":
-                        randomStep();
-                        break;
-                    case "31":
-                        if (box(0) == 0) { aiClick(0); } else if (box(3) == 0) { aiClick(3); } else randomStep();
-                        break;
-                    case "32":
-                        if (box(6) == 0) { aiClick(6); } else if (box(8) == 0) { aiClick(8); } else randomStep();
-                        break;
-                }
-            }
-            if (aiSteps === 3) { randomStep(); }
+            else if (aiSteps === 2||aiSteps === 3) { randomStep(); }
         }
     }
 
     function complement(a, b, c) {
-        var threeBox = box(a) + box(b) + box(c);
-        if (aiSteps > 1) {
+        var threeBox = box(a) + box(b) + box(c);      
             switch (threeBox) {
                 case "011":
                     aiClick(a);
@@ -231,11 +131,7 @@ $(function() {
                     return true;
                 case "110":
                     aiClick(c);
-                    return true;
-            }
-        }
-        if (AI === "O" && aiSteps > 0) {
-            switch (threeBox) {
+                    return true;        
                 case "0-1-1":
                     aiClick(a);
                     return true;
@@ -245,8 +141,7 @@ $(function() {
                 case "-1-10":
                     aiClick(c);
                     return true;
-            }
-        }
+            }    
     }
     $("div input").click(function() {
         PLAYER = $(this).data("value");
@@ -263,5 +158,4 @@ $(function() {
         aiRound();
         aiSteps++;
     });
-
 });
