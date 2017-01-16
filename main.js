@@ -134,34 +134,30 @@ $(function() {
                 switch (Xcase) {
                     case "51":
                         aiClick(6);
-                        Xcase = "516";
                         break;
                     case "53":
                         aiClick(2);
-                        Xcase = "532";
                         break;
                     case "55":
                         aiClick(6);
-                        Xcase = "556";
                         break;
                     case "57":
                         aiClick(2);
-                        Xcase = "572";
                         break;
                 }
             }
             if (aiSteps === 4) {
                 switch (Xcase) {
-                    case "516":
+                    case "51":
                         aiClick(5);
                         break;
-                    case "532":
+                    case "53":
                         aiClick(7);
                         break;
-                    case "556":
+                    case "55":
                         aiClick(1);
                         break;
-                    case "572":
+                    case "57":
                         aiClick(3);
                         break;
                 }
