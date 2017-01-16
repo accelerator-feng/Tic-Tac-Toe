@@ -42,8 +42,7 @@ $(function() {
 
     function aiRound() {
         if (complement(0, 1, 2)) {
-            return;
-        }
+            return; }
         if (complement(3, 4, 5)) {
             return;
         }
