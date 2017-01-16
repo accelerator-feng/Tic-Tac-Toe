@@ -42,7 +42,8 @@ $(function() {
 
     function aiRound() {
         if (complement(0, 1, 2)) {
-            return; }
+            return;
+        }
         if (complement(3, 4, 5)) {
             return;
         }
@@ -192,7 +193,13 @@ $(function() {
                         if (box(8) == -1) { aiClick(6); } else { aiClick(8); }
                         break;
                     case "3":
-                        if (box(1) == -1) { aiClick(7); } else { aiClick(1); }
+                        if (box(1) == -1) {
+                            aiClick(7);
+                            Ocase = "31";
+                        } else {
+                            aiClick(1);
+                            Ocase = "32";
+                        }
                         break;
                 }
             }
@@ -204,8 +211,11 @@ $(function() {
                     case "2":
                         randomStep();
                         break;
-                    case "3":
-                        randomStep();
+                    case "31":
+                        if (box(0) == 0) { aiClick(0); } else if (box(3) == 0) { aiClick(3); } else randomStep();
+                        break;
+                    case "32":
+                        if (box(6) == 0) { aiClick(6); } else if (box(8) == 0) { aiClick(8); } else randomStep();
                         break;
                 }
             }
