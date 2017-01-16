@@ -35,6 +35,9 @@ $(function() {
     }
 
     function aiRound() {
+        if (complement(2, 5, 8)) {
+            return;
+        }
         if (complement(0, 1, 2)) {
             return;
         }
@@ -48,9 +51,6 @@ $(function() {
             return;
         }
         if (complement(1, 4, 7)) {
-            return;
-        }
-        if (complement(2, 5, 8)) {
             return;
         }
         if (complement(0, 4, 8)) {
