@@ -1,12 +1,13 @@
 $(function() {
-    var PLAYER = "";
-    var AI = "";
-    var aiSteps = 0;
-    var Xcase = "";
-    var Ocase = "";
+    var btn = $("button"),
+        PLAYER = "",
+        AI = "",
+        Ocase = "",
+        Xcase = "",
+        aiSteps = 0;
 
-    function box(id) {
-        return $("#" + id).val();
+    function box(index) {
+        return btn.eq(index).val();
     }
 
     function result(msg) {
@@ -25,12 +26,12 @@ $(function() {
     }
 
     function randomStep() {
-        var voidId = $("button[value='0']").eq(0).attr("id");
+        var voidId = $("button[value='0']").eq(0).data("index");
         aiClick(voidId);
     }
 
-    function aiClick(id) {
-        $("#" + id).text(AI).prop({ "disabled": "disabled", "value": "1", }).css("color", "#000");
+    function aiClick(index) {
+        btn.eq(index).text(AI).prop({ "disabled": "disabled", "value": "1", }).css("color", "#000");
         checkSituation();
     }
 
@@ -107,45 +108,44 @@ $(function() {
                 } else {
                     aiClick(4);
                 }
-            }
-            else if (aiSteps === 1) {
-                if (parseInt(box(0)) + parseInt(box(2)) + parseInt(box(6)) + parseInt(box(8)) == 2) { aiClick(1); }
+            } else if (aiSteps === 1) {
+                if (parseInt(box(0)) + parseInt(box(2)) + parseInt(box(6)) + parseInt(box(8)) == 2) { aiClick(1); } 
                 else if (box(2) + box(3) == "-1-1" || box(1) + box(6) == "-1-1" || box(1) + box(3) == "-1-1") { aiClick(0); } 
                 else if (box(0) + box(5) == "-1-1" || box(1) + box(8) == "-1-1" || box(1) + box(5) == "-1-1") { aiClick(2); } 
                 else if (box(0) + box(7) == "-1-1" || box(3) + box(8) == "-1-1" || box(3) + box(7) == "-1-1") { aiClick(6); } 
                 else if (box(5) + box(7) == "-1-1" || box(5) + box(6) == "-1-1" || box(2) + box(7) == "-1-1") { aiClick(8); } 
                 else if (box(0) + box(8) == "-1-1" || box(2) + box(6) == "-1-1") { aiClick(1); } 
-                else {aiClick(2);}
-            }
-            else if (aiSteps === 2||aiSteps === 3) { randomStep(); }
+                else { aiClick(2); }
+            } 
+            else if (aiSteps === 2 || aiSteps === 3) { randomStep(); }
         }
     }
 
     function complement(a, b, c) {
-        var threeBox = box(a) + box(b) + box(c);      
-            switch (threeBox) {
-                case "011":
-                    aiClick(a);
-                    return true;
-                case "101":
-                    aiClick(b);
-                    return true;
-                case "110":
-                    aiClick(c);
-                    return true;        
-                case "0-1-1":
-                    aiClick(a);
-                    return true;
-                case "-10-1":
-                    aiClick(b);
-                    return true;
-                case "-1-10":
-                    aiClick(c);
-                    return true;
-            }    
+        var threeBox = box(a) + box(b) + box(c);
+        switch (threeBox) {
+            case "011":
+                aiClick(a);
+                return true;
+            case "101":
+                aiClick(b);
+                return true;
+            case "110":
+                aiClick(c);
+                return true;
+            case "0-1-1":
+                aiClick(a);
+                return true;
+            case "-10-1":
+                aiClick(b);
+                return true;
+            case "-1-10":
+                aiClick(c);
+                return true;
+        }
     }
     $("div input").click(function() {
-        PLAYER = $(this).data("value");
+        PLAYER = $(this).attr("value");
         PLAYER === "X" ? AI = "O" : AI = "X";
         $(".mask").hide();
         if (AI === "X") {
