@@ -2,7 +2,16 @@ $(function() {
     var btn = $("button"),
         PLAYER = "",
         AI = "",
-        Ocase = "",
+        arr = [        
+            [0, 1, 2],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [3, 4, 5],
+            [6, 7, 8],                  
+            [0, 4, 8],
+            [2, 4, 6]
+        ],
         Xcase = "",
         aiSteps = 0;
 
@@ -14,11 +23,13 @@ $(function() {
         setTimeout(function() {
             alert(msg);
             location.reload(true);
-        }, 600);
+        },400);
     }
 
     function checkSituation() {
-        if (box(0) + box(1) + box(2) === "111" || box(3) + box(4) + box(5) === "111" || box(6) + box(7) + box(8) === "111" || box(0) + box(3) + box(6) === "111" || box(1) + box(4) + box(7) === "111" || box(2) + box(5) + box(8) === "111" || box(0) + box(4) + box(8) === "111" || box(2) + box(4) + box(6) === "111") {
+        if (arr.some(function(item) {
+                return concatBox(item) == "111";
+            })) {
             result("你输了 :-(");
         } else if ($("button[disabled]").length === 9) {
             result("平局");
@@ -36,28 +47,14 @@ $(function() {
     }
 
     function aiRound() {
-        if (complement(2, 5, 8)) {
+        if (arr.some(function(item) {
+                return attack(item);
+            })) {
             return;
         }
-        if (complement(0, 1, 2)) {
-            return;
-        }
-        if (complement(3, 4, 5)) {
-            return;
-        }
-        if (complement(6, 7, 8)) {
-            return;
-        }
-        if (complement(0, 3, 6)) {
-            return;
-        }
-        if (complement(1, 4, 7)) {
-            return;
-        }
-        if (complement(0, 4, 8)) {
-            return;
-        }
-        if (complement(2, 4, 6)) {
+        if (arr.some(function(item) {
+                return defense(item);
+            })) {
             return;
         }
         if (AI === "X") {
@@ -116,43 +113,51 @@ $(function() {
                 else if (box(5) + box(7) == "-1-1" || box(5) + box(6) == "-1-1" || box(2) + box(7) == "-1-1") { aiClick(8); } 
                 else if (box(0) + box(8) == "-1-1" || box(2) + box(6) == "-1-1") { aiClick(1); } 
                 else { aiClick(2); }
-            } 
-            else if (aiSteps === 2 || aiSteps === 3) { randomStep(); }
+            } else if (aiSteps === 2 || aiSteps === 3) { randomStep(); }
         }
     }
 
-    function complement(a, b, c) {
-        var threeBox = box(a) + box(b) + box(c);
-        switch (threeBox) {
+    function concatBox(arr) {
+        return box(arr[0]) + box(arr[1]) + box(arr[2]);
+    }
+
+    function attack(arr) {
+        switch (concatBox(arr)) {
             case "011":
-                aiClick(a);
+                aiClick(arr[0]);
                 return true;
             case "101":
-                aiClick(b);
+                aiClick(arr[1]);
                 return true;
             case "110":
-                aiClick(c);
-                return true;
-            case "0-1-1":
-                aiClick(a);
-                return true;
-            case "-10-1":
-                aiClick(b);
-                return true;
-            case "-1-10":
-                aiClick(c);
+                aiClick(arr[2]);
                 return true;
         }
     }
+       function defense(arr) {
+        switch (concatBox(arr)) {
+            case "0-1-1":
+                aiClick(arr[0]);
+                return true;
+            case "-10-1":
+                aiClick(arr[1]);
+                return true;
+            case "-1-10":
+                aiClick(arr[2]);
+                return true;
+        }
+    }
+    btn.removeAttr("disabled");
     $("div input").click(function() {
         PLAYER = $(this).attr("value");
-        PLAYER === "X" ? AI = "O" : AI = "X";
+        AI = PLAYER === "X" ? "O" : "X";
         $(".mask").hide();
         if (AI === "X") {
             aiClick(0);
             aiSteps++;
         }
     });
+
     $("main button").click(function() {
         $(this).text(PLAYER).prop({ "disabled": "disabled", "value": "-1", }).css("color", "#000");
         checkSituation();
@@ -160,3 +165,4 @@ $(function() {
         aiSteps++;
     });
 });
+
