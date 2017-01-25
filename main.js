@@ -2,13 +2,13 @@ $(function() {
     var btn = $("button"),
         PLAYER = "",
         AI = "",
-        arr = [        
+        arr = [
             [0, 1, 2],
             [0, 3, 6],
             [1, 4, 7],
             [2, 5, 8],
             [3, 4, 5],
-            [6, 7, 8],                  
+            [6, 7, 8],
             [0, 4, 8],
             [2, 4, 6]
         ],
@@ -20,10 +20,11 @@ $(function() {
     }
 
     function result(msg) {
+        btn.attr('disabled', 'disabled');
         setTimeout(function() {
             alert(msg);
-            location.reload(true);
-        },400);
+            location.reload();
+        }, 600);
     }
 
     function checkSituation() {
@@ -134,7 +135,8 @@ $(function() {
                 return true;
         }
     }
-       function defense(arr) {
+
+    function defense(arr) {
         switch (concatBox(arr)) {
             case "0-1-1":
                 aiClick(arr[0]);
