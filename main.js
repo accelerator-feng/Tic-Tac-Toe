@@ -160,7 +160,7 @@ $(function() {
         }
     });
 
-    $("main button").click(function() {
+    btn.click(function() {
         $(this).text(PLAYER).prop({ "disabled": "disabled", "value": "-1", }).css("color", "#000");
         checkSituation();
         aiRound();
