@@ -156,11 +156,11 @@ $(function() {
     $("div input").click(function() {
         PLAYER = $(this).attr("value");
         $(".mask").hide();
-        if (PLAYER === "X") {
-            AI = "O";
+        if (PLAYER === "O") {
+            AI = "X";
             aiClick(0);
             aiSteps++;
-        } else { AI = "X"; }
+        } else { AI = "O"; }
     });
     btn.click(function() {
         $(this).text(PLAYER).prop({ "disabled": "disabled", "value": "-1", }).css("color", "#000");
