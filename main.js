@@ -78,7 +78,7 @@ $(function() {
                         aiClick(2);
                         break;
                     default:
-                        aiClick(8);
+                        aiClick(8); 
                         break;
                 }
             }
@@ -155,14 +155,13 @@ $(function() {
     btn.removeAttr("disabled");
     $("div input").click(function() {
         PLAYER = $(this).attr("value");
-        AI = PLAYER === "X" ? "O" : "X";
         $(".mask").hide();
-        if (AI === "X") {
+        if (PLAYER === "X") {
+            AI = "O";
             aiClick(0);
             aiSteps++;
-        }
+        } else { AI = "X"; }
     });
-
     btn.click(function() {
         $(this).text(PLAYER).prop({ "disabled": "disabled", "value": "-1", }).css("color", "#000");
         checkSituation();
