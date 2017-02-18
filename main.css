@@ -1,5 +1,5 @@
 body {
-    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif, "宋体";
+    font-family: "Microsoft YaHei", Arial, Helvetica, sans-serif;
 }
 
 main {
@@ -20,8 +20,7 @@ main button {
 }
 
 .mask {
-
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;
@@ -37,6 +36,12 @@ main button {
     margin: 130px auto;
     border-radius: 20px;
     color: #fff;
+}
+
+@media only screen and (max-width: 50em) {
+    .select {
+        width: 70%;
+    }
 }
 
 div input {
